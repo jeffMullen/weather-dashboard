@@ -18,7 +18,8 @@
 var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
 var searchBtn = $('#search-btn');
 var searchInput = $('#search-input');
-var query = searchInput.val();
+
+
 
 var searchHistoryEl = $('#search-history');
 
@@ -43,13 +44,22 @@ function handleFormSubmit() {
 }
 
 function saveCity() {
-    var searchedCity = $('<div>');
-    var cityBtn = $('<button>');
-    cityBtn.addClass('btn btn-secondary btn-lg btn-block');
-    cityBtn.text(searchInput.val());
-    searchedCity.append(cityBtn);
-    searchHistoryEl.append(searchedCity);
-    localStorage.setItem('city', searchInput.val());
+    var query = searchInput.val();
+    console.log(typeof query);
+    console.log(query.length);
+
+    if (query.length === 0) {
+
+    } else {
+        var searchedCity = $('<div>');
+        var cityBtn = $('<button>');
+        cityBtn.addClass('btn btn-secondary btn-lg btn-block');
+        cityBtn.text(searchInput.val());
+        searchedCity.append(cityBtn);
+        searchHistoryEl.append(searchedCity);
+        localStorage.setItem('city', searchInput.val());
+    }
+
 }
 
 searchBtn.on('click', handleFormSubmit);
