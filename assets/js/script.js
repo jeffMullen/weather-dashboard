@@ -18,6 +18,9 @@
 var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
 var searchBtn = $('#searchBtn');
 var searchInput = $('#searchInput');
+var query = searchInput.val();
+
+var citiesEl = $('#cities');
 
 function handleFormSubmit() {
     console.log(searchInput.val());
@@ -31,9 +34,22 @@ function handleFormSubmit() {
         .then(function (data) {
             console.log(data);
             for (var i = 0; i < data.length; i++) {
+
                 console.log(data[i].login);
             }
         })
+
+    saveCity();
+}
+
+function saveCity() {
+    var searchedCity = $('<div>');
+    var cityBtn = $('<button>');
+    cityBtn.addClass('btn btn-secondary btn-lg btn-block');
+    cityBtn.text(searchInput.val());
+    searchedCity.append(cityBtn);
+    citiesEl.append(searchedCity);
+    localStorage.setItem('city', searchInput.val());
 }
 
 searchBtn.on('click', handleFormSubmit);
