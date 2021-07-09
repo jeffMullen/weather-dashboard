@@ -16,3 +16,11 @@
 // THEN I am again presented with current and future conditions for that city
 
 var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
+var searchBtn = $('#searchBtn');
+var searchInput = $('#searchInput');
+
+function handleFormSubmit(event) {
+    console.log('hit');
+}
+
+searchBtn.on('click', handleFormSubmit);
