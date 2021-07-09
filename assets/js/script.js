@@ -19,8 +19,21 @@ var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
 var searchBtn = $('#searchBtn');
 var searchInput = $('#searchInput');
 
-function handleFormSubmit(event) {
+function handleFormSubmit() {
+    console.log(searchInput.val());
     console.log('hit');
+
+    var requestUrl = 'https://api.github.com/users?per_page=5';
+    fetch(requestUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                console.log(data[i].login);
+            }
+        })
 }
 
 searchBtn.on('click', handleFormSubmit);
