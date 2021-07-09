@@ -16,11 +16,11 @@
 // THEN I am again presented with current and future conditions for that city
 
 var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
-var searchBtn = $('#searchBtn');
-var searchInput = $('#searchInput');
+var searchBtn = $('#search-btn');
+var searchInput = $('#search-input');
 var query = searchInput.val();
 
-var citiesEl = $('#cities');
+var searchHistoryEl = $('#search-history');
 
 function handleFormSubmit() {
     console.log(searchInput.val());
@@ -48,7 +48,7 @@ function saveCity() {
     cityBtn.addClass('btn btn-secondary btn-lg btn-block');
     cityBtn.text(searchInput.val());
     searchedCity.append(cityBtn);
-    citiesEl.append(searchedCity);
+    searchHistoryEl.append(searchedCity);
     localStorage.setItem('city', searchInput.val());
 }
 
