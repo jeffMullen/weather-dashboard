@@ -23,6 +23,7 @@ var searchInput = $('#search-input');
 
 var searchHistoryEl = $('#search-history');
 
+// || Fetch request for Open Weather API
 function handleFormSubmit() {
     console.log(searchInput.val());
     console.log('hit');
@@ -43,11 +44,13 @@ function handleFormSubmit() {
     saveCity();
 }
 
+// || Adds searched city to previously searched section
 function saveCity() {
     var query = searchInput.val();
     console.log(typeof query);
     console.log(query.length);
 
+    // || Checks if input field is empty or populated
     if (query.length === 0) {
 
     } else {
@@ -62,4 +65,5 @@ function saveCity() {
 
 }
 
+// || Event handler on button
 searchBtn.on('click', handleFormSubmit);
