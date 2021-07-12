@@ -53,6 +53,12 @@ function handleFormSubmit() {
 
             var currentForecast = $('#current-forecast')
             var cityChosen = $('<h3>');
+            cityChosen.text(data.name);
+            var currentDate = moment.unix(data.dt).format('MM/DD/YYYY');
+            currentForecast.append(cityChosen);
+            cityChosen.append(` ${currentDate}`);
+            // currentForecast.after(currentDate);
+
 
             var requestOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
             fetch(requestOneCall)
