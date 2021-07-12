@@ -91,7 +91,7 @@ function handleFormSubmit() {
                     if (uvIndexText.text() < '3') {
                         uvIndexText.attr('style', 'background: green');
                     } else if (uvIndexText.text() >= '3' && uvIndexText.text() < '6') {
-                        uvIndexText.attr('style', 'background: rgb(255, 230, 0)');
+                        uvIndexText.attr('style', 'background: orange');
                     } else {
                         uvIndexText.attr('style', 'background: red');
                     }
