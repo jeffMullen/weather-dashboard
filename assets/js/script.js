@@ -58,6 +58,7 @@ function saveCity() {
         var cityBtn = $('<button>');
         cityBtn.addClass('btn btn-secondary btn-lg btn-block');
         cityBtn.text(searchInput.val());
+        searchedCity.attr('style', 'margin-bottom: 15px;')
         searchedCity.append(cityBtn);
         searchHistoryEl.append(searchedCity);
         localStorage.setItem('city', searchInput.val());
