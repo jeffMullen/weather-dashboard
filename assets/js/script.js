@@ -26,6 +26,7 @@
 var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
 var searchBtn = $('#search-btn');
 var searchInput = $('#search-input');
+var currentForecast = $('#current-forecast')
 
 var lat;
 var lon;
@@ -38,7 +39,7 @@ function handleFormSubmit() {
     console.log('hit');
     var cityName = searchInput.val();
 
-    // API fetch for city latitude and longitude
+    // || API fetch for city latitude and longitude
     var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
     fetch(requestUrl)
         .then(function (response) {
@@ -49,12 +50,13 @@ function handleFormSubmit() {
             lat = data.coord.lat;
             lon = data.coord.lon;
 
-            var currentForecast = $('#current-forecast')
             var cityChosen = $('<h2>');
             cityChosen.text(data.name);
             var currentDate = moment.unix(data.dt).format('MM/DD/YYYY');
             currentForecast.append(cityChosen);
             cityChosen.append(` ${currentDate}`);
+
+            // || Fetch for open weather map one call API
             var requestOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
             fetch(requestOneCall)
                 .then(function (response) {
@@ -62,7 +64,7 @@ function handleFormSubmit() {
                 })
                 .then(function (data) {
                     console.log(data);
-                    // Today's Data
+                    // || Today's Data
                     var currentTemp = $('<p>');
                     currentTemp.text(`Temp: ${data.current.temp}°F`)
                     currentForecast.append(currentTemp);
@@ -76,20 +78,29 @@ function handleFormSubmit() {
                     currentForecast.append(currentHumidity);
 
                     var currentUvIndex = $('<p>');
-                    currentUvIndex.text(`UV Index: ${data.current.uvi}`);
+                    var uvIndexText = $('<button>');
+
+                    // || color added to background of UV index text
+                    uvIndexText.attr('style', 'display: inline');
+                    uvIndexText.addClass('index-color');
+                    uvIndexText.text(data.current.uvi);
+
+                    currentUvIndex.text(`UV Index: `);
+                    currentUvIndex.append(uvIndexText);
+
+                    if (uvIndexText.text() < '3') {
+                        uvIndexText.attr('style', 'background: green');
+                    } else if (uvIndexText.text() >= '3' && uvIndexText.text() < '6') {
+                        uvIndexText.attr('style', 'background: rgb(255, 230, 0)');
+                    } else {
+                        uvIndexText.attr('style', 'background: red');
+                    }
                     currentForecast.append(currentUvIndex);
                 })
-
-            // getCurrentWeather();
         })
 
     saveCity();
 }
-
-// function getCurrentWeather() {
-
-// }
-
 
 // || Adds searched city to previously searched section
 function saveCity() {

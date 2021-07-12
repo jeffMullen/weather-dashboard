@@ -11,3 +11,13 @@ header {
 #current-forecast {
     border: 1px solid black;
 }
+
+.index-color {
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.index-color:hover {
+    cursor: default;
+}
