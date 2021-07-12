@@ -51,6 +51,9 @@ function handleFormSubmit() {
             console.log(lat);
             console.log(lon);
 
+            var currentForecast = $('#current-forecast')
+            var cityChosen = $('<h3>');
+
             var requestOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
             fetch(requestOneCall)
                 .then(function (response) {
@@ -58,6 +61,8 @@ function handleFormSubmit() {
                 })
                 .then(function (data) {
                     console.log(data);
+                    // Daily Data
+
                 })
             // console.log(data.name);
             // console.log(data.main.temp);
