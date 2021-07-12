@@ -27,7 +27,8 @@ var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
 var searchBtn = $('#search-btn');
 var searchInput = $('#search-input');
 
-
+var lat;
+var lon;
 
 var searchHistoryEl = $('#search-history');
 
@@ -45,11 +46,8 @@ function handleFormSubmit() {
         })
         .then(function (data) {
             console.log(data);
-            // for (var i = 0; i < data.length; i++) {
-            var lat = data.coord.lat;
-            var lon = data.coord.lon;
-            console.log(lat);
-            console.log(lon);
+            lat = data.coord.lat;
+            lon = data.coord.lon;
 
             var currentForecast = $('#current-forecast')
             var cityChosen = $('<h3>');
@@ -57,30 +55,27 @@ function handleFormSubmit() {
             var currentDate = moment.unix(data.dt).format('MM/DD/YYYY');
             currentForecast.append(cityChosen);
             cityChosen.append(` ${currentDate}`);
-            // currentForecast.after(currentDate);
 
-
-            var requestOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
-            fetch(requestOneCall)
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (data) {
-                    console.log(data);
-                    // Daily Data
-
-                })
-            // console.log(data.name);
-            // console.log(data.main.temp);
-            // console.log(data.main.humidity);
-            // console.log(data.wind.speed);
-            // console.log(data.)
-            // }
+            getCurrentWeather();
         })
-
 
     saveCity();
 }
+
+function getCurrentWeather() {
+    var requestOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
+    fetch(requestOneCall)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            // Daily Data
+
+        })
+
+}
+
 
 // || Adds searched city to previously searched section
 function saveCity() {
