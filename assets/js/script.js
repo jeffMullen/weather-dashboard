@@ -6,6 +6,14 @@
 // WHEN I view current weather conditions for that city
 // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
 
+// 1. city name - check
+// 2. date
+// 3. icon representing weather conditions
+// 4. temperature - sort of
+// 5. humidity - check
+// 6. wind speed
+// 7. UV index
+
 // WHEN I view the UV index
 // THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
 
@@ -27,19 +35,38 @@ var searchHistoryEl = $('#search-history');
 function handleFormSubmit() {
     console.log(searchInput.val());
     console.log('hit');
+    var cityName = searchInput.val();
 
-    var requestUrl = 'https://api.github.com/users?per_page=5';
+    // API fetch for city latitude and longitude
+    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
     fetch(requestUrl)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
             console.log(data);
-            for (var i = 0; i < data.length; i++) {
+            // for (var i = 0; i < data.length; i++) {
+            var lat = data.coord.lat;
+            var lon = data.coord.lon;
+            console.log(lat);
+            console.log(lon);
 
-                console.log(data[i].login);
-            }
+            var requestOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
+            fetch(requestOneCall)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    console.log(data);
+                })
+            // console.log(data.name);
+            // console.log(data.main.temp);
+            // console.log(data.main.humidity);
+            // console.log(data.wind.speed);
+            // console.log(data.)
+            // }
         })
+
 
     saveCity();
 }
