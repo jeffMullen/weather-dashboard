@@ -7,12 +7,12 @@
 // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
 
 // 1. city name - check
-// 2. date
+// 2. date - check
 // 3. icon representing weather conditions
-// 4. temperature - sort of
+// 4. temperature - check
 // 5. humidity - check
-// 6. wind speed
-// 7. UV index
+// 6. wind speed - check
+// 7. UV index - 
 
 // WHEN I view the UV index
 // THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
@@ -50,31 +50,45 @@ function handleFormSubmit() {
             lon = data.coord.lon;
 
             var currentForecast = $('#current-forecast')
-            var cityChosen = $('<h3>');
+            var cityChosen = $('<h2>');
             cityChosen.text(data.name);
             var currentDate = moment.unix(data.dt).format('MM/DD/YYYY');
             currentForecast.append(cityChosen);
             cityChosen.append(` ${currentDate}`);
+            var requestOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
+            fetch(requestOneCall)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    console.log(data);
+                    // Today's Data
+                    var currentTemp = $('<p>');
+                    currentTemp.text(`Temp: ${data.current.temp}°F`)
+                    currentForecast.append(currentTemp);
 
-            getCurrentWeather();
+                    var currentWindSpeed = $('<p>');
+                    currentWindSpeed.text(`Wind: ${data.current.wind_speed} MPH`);
+                    currentForecast.append(currentWindSpeed);
+
+                    var currentHumidity = $('<p>');
+                    currentHumidity.text(`Humidity: ${data.current.humidity} %`);
+                    currentForecast.append(currentHumidity);
+
+                    var currentUvIndex = $('<p>');
+                    currentUvIndex.text(`UV Index: ${data.current.uvi}`);
+                    currentForecast.append(currentUvIndex);
+                })
+
+            // getCurrentWeather();
         })
 
     saveCity();
 }
 
-function getCurrentWeather() {
-    var requestOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
-    fetch(requestOneCall)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-            // Daily Data
+// function getCurrentWeather() {
 
-        })
-
-}
+// }
 
 
 // || Adds searched city to previously searched section
