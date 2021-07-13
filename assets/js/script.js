@@ -21,10 +21,10 @@
 // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 
 // 1. date - check
-// 2. icon of weather
-// 3. temp
-// 4. wind speed
-// 5. humidity
+// 2. icon of weather - check
+// 3. temp - check
+// 4. wind speed - check
+// 5. humidity - check
 
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
@@ -118,25 +118,47 @@ function handleFormSubmit() {
                     currentForecast.attr('style', 'display: block');
 
                     // || Display 5 day forecast
+                    var cardId = 1;
                     for (var i = 1; i < 6; i++) {
                         // || Create card
                         var weatherCardRow = $('weather-card-row');
 
-                        var weatherCard = $('<div>');
-                        weatherCard.addClass('card col-2');
+                        var weatherCard = $(`#card-${cardId}`);
+                        // weatherCard.addClass('card col-2');
 
                         // || Add date to card
                         var futureDate = moment.unix(data.daily[i].dt).format('MM/DD/YYYY');
                         var fiveDayDate = $('<h3>');
                         fiveDayDate.text(`(${futureDate})`);
-                        weatherCardRow.append(weatherCard);
+                        // weatherCardRow.append(weatherCard);
                         weatherCard.append(fiveDayDate);
 
+                        // || Adding weather icon to each card
+                        var futureIcon = $('<img>');
+                        var futureWeatherIcon = data.daily[i].weather[0].icon;
+                        futureIcon.attr('src', `http://openweathermap.org/img/wn/${futureWeatherIcon}@2x.png`);
+                        futureIcon.attr('alt', data.daily[i].weather[0].main);
+                        weatherCard.append(futureIcon);
 
+                        // || Adding Temperature
+                        var futureTemp = $('<p>');
+                        futureTemp.text(`Temp: ${data.daily[i].temp.day}°F`)
+                        weatherCard.append(futureTemp);
 
+                        // || Wind speed
+                        var futureWindSpeed = $('<p>');
+                        futureWindSpeed.text(`Wind: ${data.daily[i].wind_speed} MPH`);
+                        weatherCard.append(futureWindSpeed);
+
+                        // || Humidity
+                        var futureHumidity = $('<p>');
+                        futureHumidity.text(`Humidity: ${data.daily[i].humidity} %`);
+                        weatherCard.append(futureHumidity);
 
 
                         futureForecast.append(weatherCard);
+                        cardId++;
+                        console.log(weatherCard.attr('id'));
                     }
                     futureForecast.attr('style', 'display: block');
                 })
