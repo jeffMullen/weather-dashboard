@@ -65,7 +65,7 @@ function handleFormSubmit() {
             cityChosen.append(` (${currentDate})`);
 
             // || Fetch for open weather map one call API
-            var requestOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
+            var requestOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`
             fetch(requestOneCall)
                 .then(function (response) {
                     return response.json();
