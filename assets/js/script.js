@@ -38,6 +38,7 @@ function handleFormSubmit() {
     console.log(searchInput.val());
     console.log('hit');
     var cityName = searchInput.val();
+    saveCity();
 
     // || API fetch for city latitude and longitude
     var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
@@ -101,10 +102,10 @@ function handleFormSubmit() {
                         uvIndexText.attr('style', 'background: red');
                     }
                     currentForecast.append(currentUvIndex);
+                    currentForecast.attr('style', 'display: block');
                 })
         })
 
-    saveCity();
 }
 
 // || Adds searched city to previously searched section
