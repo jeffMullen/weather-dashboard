@@ -4,13 +4,22 @@ body {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+h1 {
+    color: white;
+}
+
 h1 h2 h3 {
     font-weight: 700;
 }
 
 header {
     background: radial-gradient(aquamarine, aqua, rgb(0, 119, 255), purple);
+    background: radial-gradient(purple, rgb(0, 119, 225), aqua, aquamarine);
     padding: 20px;
+}
+
+#search-history {
+    border-top: 1px solid black;
 }
 
 #current-forecast {
