@@ -54,7 +54,7 @@ function handleFormSubmit() {
             cityChosen.text(data.name);
             var currentDate = moment.unix(data.dt).format('MM/DD/YYYY');
             currentForecast.append(cityChosen);
-            cityChosen.append(` ${currentDate}`);
+            cityChosen.append(` (${currentDate})`);
 
             // || Fetch for open weather map one call API
             var requestOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
@@ -65,6 +65,11 @@ function handleFormSubmit() {
                 .then(function (data) {
                     console.log(data);
                     // || Today's Data
+                    var weatherIcon = data.current.weather[0].icon;
+                    var iconImage = $('<img>');
+                    iconImage.attr('src', `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`);
+                    cityChosen.append(iconImage);
+
                     var currentTemp = $('<p>');
                     currentTemp.text(`Temp: ${data.current.temp}°F`)
                     currentForecast.append(currentTemp);
