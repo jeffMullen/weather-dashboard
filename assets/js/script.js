@@ -44,16 +44,35 @@ var searchBtn = $('#search-btn');
 var searchInput = $('#search-input');
 var currentForecast = $('#current-forecast');
 var futureForecast = $('#future-forecast');
+var searchHistoryEl = $('#search-history');
 var storageArr = [];
-storageArr = JSON.parse(localStorage.getItem('city'));
-// console.log(savedCities);
+
 console.log(storageArr);
-// console.log(storage);
+
+function loadSearchHistory() {
+    if (localStorage.getItem('city') === null) {
+        console.log('Nothing Happens')
+
+    } else {
+        storageArr = storageArr.concat(JSON.parse(localStorage.getItem('city')));
+        console.log('Something happens');
+        console.log(storageArr);
+        for (var i = 0; i < storageArr.length; i++) {
+            var searchedCity = $('<div>');
+            var cityBtn = $('<button>');
+            cityBtn.addClass('btn btn-secondary btn-lg btn-block');
+            cityBtn.text(storageArr[i]);
+            searchedCity.attr('style', 'margin-bottom: 15px;')
+            searchedCity.append(cityBtn);
+            searchHistoryEl.append(searchedCity);
+        }
+    }
+}
+loadSearchHistory();
 
 var lat;
 var lon;
 
-var searchHistoryEl = $('#search-history');
 
 // || Fetch request for Open Weather API
 function handleFormSubmit() {
@@ -203,8 +222,11 @@ function saveCity() {
     searchHistoryEl.append(searchedCity);
     console.log(storageArr);
 
-
-    storageArr = storageArr.concat(query);
+    if (localStorage.getItem('city') === null) {
+        storageArr = storageArr.concat(`${query}`);
+    } else {
+        storageArr = storageArr.concat(`${query}`);
+    }
     localStorage.setItem('city', JSON.stringify(storageArr));
 
 
