@@ -45,7 +45,9 @@ var searchInput = $('#search-input');
 var currentForecast = $('#current-forecast');
 var futureForecast = $('#future-forecast');
 var storageArr = [];
-// storageArr = localStorage.getItem(JSON.parse('city'));
+storageArr = JSON.parse(localStorage.getItem('city'));
+// console.log(savedCities);
+console.log(storageArr);
 // console.log(storage);
 
 var lat;
@@ -58,7 +60,6 @@ function handleFormSubmit() {
     if (searchInput.val() === '') {
         return;
     } else {
-
         console.log(searchInput.val());
         var cityName = searchInput.val();
         saveCity();
@@ -176,7 +177,10 @@ function handleFormSubmit() {
                             cardId++;
                             console.log(weatherCard.attr('id'));
                         }
+                        // || Show forecast
                         futureForecast.attr('style', 'display: block');
+
+                        // || Clear search field
                         searchInput.val('');
                     })
             })
@@ -189,24 +193,24 @@ function saveCity() {
     console.log(typeof query);
     console.log(query.length);
 
-    // || Checks if input field is empty or populated
-    if (query.length === 0) {
-
-    } else {
-        var searchedCity = $('<div>');
-        var cityBtn = $('<button>');
-        cityBtn.addClass('btn btn-secondary btn-lg btn-block');
-        cityBtn.text(searchInput.val());
-        searchedCity.attr('style', 'margin-bottom: 15px;')
-        searchedCity.append(cityBtn);
-        searchHistoryEl.append(searchedCity);
-        // storageArr = storageArr.concat(searchInput.val());
-        // localStorage.setItem('city', JSON.stringify(searchHistoryArr.concat(searchInput.val())));
+    // || Creating button for searched city
+    var searchedCity = $('<div>');
+    var cityBtn = $('<button>');
+    cityBtn.addClass('btn btn-secondary btn-lg btn-block');
+    cityBtn.text(searchInput.val());
+    searchedCity.attr('style', 'margin-bottom: 15px;')
+    searchedCity.append(cityBtn);
+    searchHistoryEl.append(searchedCity);
+    console.log(storageArr);
 
 
-        console.log(storageArr);
+    storageArr = storageArr.concat(query);
+    localStorage.setItem('city', JSON.stringify(storageArr));
 
-    }
+
+    console.log(storageArr);
+
+
 
 }
 
