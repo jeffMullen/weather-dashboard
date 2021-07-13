@@ -8,17 +8,23 @@
 
 // 1. city name - check
 // 2. date - check
-// 3. icon representing weather conditions
+// 3. icon representing weather conditions - check
 // 4. temperature - check
 // 5. humidity - check
 // 6. wind speed - check
-// 7. UV index - 
+// 7. UV index - check
 
 // WHEN I view the UV index
 // THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
 
 // WHEN I view future weather conditions for that city
 // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+
+// 1. date - check
+// 2. icon of weather
+// 3. temp
+// 4. wind speed
+// 5. humidity
 
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
@@ -111,10 +117,24 @@ function handleFormSubmit() {
 
                     // || Display 5 day forecast
                     for (var i = 1; i < 6; i++) {
+                        // || Create card
+                        var weatherCardRow = $('weather-card-row');
+
+                        var weatherCard = $('<div>');
+                        weatherCard.addClass('card col-2');
+
+                        // || Add date to card
                         var futureDate = moment.unix(data.daily[i].dt).format('MM/DD/YYYY');
                         var fiveDayDate = $('<h3>');
                         fiveDayDate.text(`(${futureDate})`);
-                        futureForecast.append(fiveDayDate);
+                        weatherCardRow.append(weatherCard);
+                        weatherCard.append(fiveDayDate);
+
+
+
+
+
+                        futureForecast.append(weatherCard);
                     }
                     futureForecast.attr('style', 'display: block');
                 })
