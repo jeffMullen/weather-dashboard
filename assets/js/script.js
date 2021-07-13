@@ -73,9 +73,11 @@ function handleFormSubmit() {
                 .then(function (data) {
                     console.log(data);
                     // || Today's Data
+                    // || Display weather icon according to current conditions
                     var weatherIcon = data.current.weather[0].icon;
                     var iconImage = $('<img>');
                     iconImage.attr('src', `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`);
+                    iconImage.attr('alt', data.current.weather[0].main);
                     cityChosen.append(iconImage);
 
                     // || Display current temperature
