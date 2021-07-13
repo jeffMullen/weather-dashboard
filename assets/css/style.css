@@ -22,3 +22,7 @@ header {
 .index-color:hover {
     cursor: default;
 }
+
+#future-forecast {
+    display: none;
+}

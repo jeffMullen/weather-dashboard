@@ -26,7 +26,8 @@
 var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
 var searchBtn = $('#search-btn');
 var searchInput = $('#search-input');
-var currentForecast = $('#current-forecast')
+var currentForecast = $('#current-forecast');
+var futureForecast = $('#future-forecast');
 
 var lat;
 var lon;
@@ -71,18 +72,22 @@ function handleFormSubmit() {
                     iconImage.attr('src', `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`);
                     cityChosen.append(iconImage);
 
+                    // || Display current temperature
                     var currentTemp = $('<p>');
                     currentTemp.text(`Temp: ${data.current.temp}°F`)
                     currentForecast.append(currentTemp);
 
+                    // || Display current wind speed
                     var currentWindSpeed = $('<p>');
                     currentWindSpeed.text(`Wind: ${data.current.wind_speed} MPH`);
                     currentForecast.append(currentWindSpeed);
 
+                    // || Display current humidity
                     var currentHumidity = $('<p>');
                     currentHumidity.text(`Humidity: ${data.current.humidity} %`);
                     currentForecast.append(currentHumidity);
 
+                    // || Display current UV Index
                     var currentUvIndex = $('<p>');
                     var uvIndexText = $('<button>');
 
@@ -103,6 +108,15 @@ function handleFormSubmit() {
                     }
                     currentForecast.append(currentUvIndex);
                     currentForecast.attr('style', 'display: block');
+
+                    // || Display 5 day forecast
+                    for (var i = 1; i < 6; i++) {
+                        var futureDate = moment.unix(data.daily[i].dt).format('MM/DD/YYYY');
+                        var fiveDayDate = $('<h3>');
+                        fiveDayDate.text(`(${futureDate})`);
+                        futureForecast.append(fiveDayDate);
+                    }
+                    futureForecast.attr('style', 'display: block');
                 })
         })
 
