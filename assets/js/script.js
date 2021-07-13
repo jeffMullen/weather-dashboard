@@ -156,7 +156,7 @@ function handleFormSubmit() {
                         weatherCard.append(futureHumidity);
 
 
-                        futureForecast.append(weatherCard);
+                        weatherCardRow.append(weatherCard);
                         cardId++;
                         console.log(weatherCard.attr('id'));
                     }
