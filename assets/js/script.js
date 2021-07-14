@@ -34,19 +34,20 @@
 //  a. set storage - check
 //  b. get storage and display - check
 
-// 2. Clicking on previous search brings up weather data
+// 2. Clicking on previous search brings up weather data --------------> DONE !!!!
 // a. add event delegation to search history element - check
 // b. fetch request with button text as the city - check
 // c.  piggyback on handleFormSubmit function - check
 
-// 3. Clicking search button clears input field - check
+// 3. Clicking search button clears input field - --------------> DONE !!!
 
-// 4. Searching for a new city clears all previous weather data
-//      a. conditional statement checking if current weather element has any data
+// 4. Searching for a new city clears all previous weather data - --------------> DONE !!!
 
-// 5. Only responds to real city names
+// 5. Only responds to real city names --------------> DONE !!!
 
-// 6. Only save city if it doesn't already exist in local storage
+// 6. Prevent weird future forecast display when clearing search with bad city name
+
+// 7. Only save city if it doesn't already exist in local storage
 
 
 var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
@@ -98,7 +99,7 @@ function getWeather() {
         return;
     } else {
         cityName = searchInput.val();
-        saveCity();
+
         fetchWeather();
     }
 }
@@ -106,8 +107,7 @@ function getWeather() {
 function fetchWeather() {
     console.log(searchInput.val());
 
-    console.log(cityName);
-    cityName;
+
     currentForecast.attr('style', 'display: none');
     currentForecast.empty();
     // weatherCardRow.children().empty();
@@ -121,7 +121,15 @@ function fetchWeather() {
     var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
     fetch(requestUrl)
         .then(function (response) {
-            return response.json();
+            if (response.status === 404) {
+                return;
+            } else {
+
+                console.log(cityName);
+                cityName;
+                saveCity();
+                return response.json();
+            }
         })
         .then(function (data) {
             console.log(data);
@@ -138,6 +146,7 @@ function fetchWeather() {
             var requestOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`
             fetch(requestOneCall)
                 .then(function (response) {
+
                     return response.json();
                 })
                 .then(function (data) {
@@ -239,23 +248,18 @@ function fetchWeather() {
 
 // || Adds searched city to previously searched section
 function saveCity() {
-    var query = searchInput.val();
-    console.log(typeof query);
-    console.log(query.length);
-
     // || Creating button for searched city
-
     var searchedCity = $('<div>');
     var cityBtn = $('<button>');
     cityBtn.addClass('btn btn-secondary btn-lg btn-block');
-    cityBtn.text(searchInput.val());
+    cityBtn.text(cityName);
     searchedCity.attr('style', 'margin-bottom: 15px;')
     searchedCity.append(cityBtn);
     searchHistoryEl.append(searchedCity);
     console.log(storageArr);
 
 
-    storageArr = storageArr.concat(`${query}`);
+    storageArr = storageArr.concat(`${cityName}`);
 
     localStorage.setItem('city', JSON.stringify(storageArr));
     console.log(storageArr);
