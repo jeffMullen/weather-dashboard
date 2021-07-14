@@ -1,59 +1,3 @@
-
-// GIVEN a weather dashboard with form inputs
-// WHEN I search for a city
-// THEN I am presented with current and future conditions for that city and that city is added to the search history
-
-// WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-
-// 1. city name - check
-// 2. date - check
-// 3. icon representing weather conditions - check
-// 4. temperature - check
-// 5. humidity - check
-// 6. wind speed - check
-// 7. UV index - check
-
-// WHEN I view the UV index
-// THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-
-// 1. date - check
-// 2. icon of weather - check
-// 3. temp - check
-// 4. wind speed - check
-// 5. humidity - check
-
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
-
-// TODO LIST:::::
-// 1. Local Storage of previous searches ------------> DONE!!!!
-//  a. set storage - check
-//  b. get storage and display - check
-
-// 2. Clicking on previous search brings up weather data --------------> DONE !!!!
-// a. add event delegation to search history element - check
-// b. fetch request with button text as the city - check
-// c.  piggyback on handleFormSubmit function - check
-
-// 3. Clicking search button clears input field - --------------> DONE !!!
-
-// 4. Searching for a new city clears all previous weather data - --------------> DONE !!!
-
-// 5. Only responds to real city names --------------> DONE !!!
-
-// 6. Prevent weird future forecast display when clearing search with bad city name --------------> DONE !!!
-
-// 7. Only save city if it doesn't already exist in local storage --------------> DONE !!!
-
-// 8. If 404 error, then display message to choose a valid city name --------------> DONE !!!
-
-// 9. Capitalize first letter of each work on search history --------------> DONE !!!
-
-
 var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
 var searchBtn = $('#search-btn');
 var searchInput = $('#search-input');
@@ -109,6 +53,8 @@ function getWeather() {
 }
 
 function fetchWeather() {
+    // || If button is clicked after 404, clear search bar
+    searchInput.attr('placeholder', '');
     console.log(searchInput.val());
 
     // || API fetch for city latitude and longitude
@@ -296,9 +242,6 @@ searchBtn.on('click', function () {
 
 // || Event handler on search history buttons
 searchHistoryEl.on('click', 'button', function () {
-    // || If search history button is clicked after 404, clear search bar
-    searchInput.attr('placeholder', '');
-
     // || Getting city name from button
     cityName = $(this).text();
     console.log(cityName);
