@@ -55,6 +55,11 @@ var searchInput = $('#search-input');
 var currentForecast = $('#current-forecast');
 var futureForecast = $('#future-forecast');
 var weatherCardRow = $('weather-card-row');
+var cardOne = $('#card-1');
+var cardTwo = $('#card-2')
+var cardThree = $('#card-3')
+var cardFour = $('#card-4')
+var cardFive = $('#card-5')
 var searchHistoryEl = $('#search-history');
 var storageArr = [];
 
@@ -105,7 +110,12 @@ function fetchWeather() {
     cityName;
     currentForecast.attr('style', 'display: none');
     currentForecast.empty();
-    weatherCardRow.empty();
+    // weatherCardRow.children().empty();
+    cardOne.empty();
+    cardTwo.empty();
+    cardThree.empty();
+    cardFour.empty();
+    cardFive.empty();
 
     // || API fetch for city latitude and longitude
     var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
@@ -181,7 +191,7 @@ function fetchWeather() {
                     var cardId = 1;
                     for (var i = 1; i < 6; i++) {
                         // || Create card
-                        var weatherCard = $(`#card-${cardId}`);
+                        weatherCard = $(`#card-${cardId}`);
 
                         // || Add date to card
                         var futureDate = moment.unix(data.daily[i].dt).format('MM/DD/YYYY');
