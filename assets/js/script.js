@@ -51,7 +51,7 @@
 
 // 8. If 404 error, then display message to choose a valid city name
 
-// 9. Capitalize first letter of each work on search history
+// 9. Capitalize first letter of each work on search history --------------> DONE !!!
 
 
 var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
@@ -252,7 +252,17 @@ function fetchWeather() {
 
 // || Adds searched city to previously searched section
 function saveCity() {
-    // || Creating button for searched city
+    // || Capitalizing the input
+    var capitalize = cityName.split(' ');
+    for (var i = 0; i < capitalize.length; i++) {
+
+        var capitalizeLetter = capitalize[i].charAt(capitalize[i][0]).toUpperCase();
+        capitalize[i] = capitalize[i].replace(capitalize[i][0], capitalizeLetter);
+    }
+    capitalize = capitalize.join(' ');
+    cityName = capitalize;
+
+    // || Checking if city is in local storage
     var nameCheck;
     for (var i = 0; i < storageArr.length; i++) {
         if (cityName === storageArr[i]) {
@@ -260,6 +270,7 @@ function saveCity() {
             break;
         }
     }
+    // || Creating button for searched city if not already in local storage
     if (!nameCheck) {
         var searchedCity = $('<div>');
         var cityBtn = $('<button>');
