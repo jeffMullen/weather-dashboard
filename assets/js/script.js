@@ -45,9 +45,13 @@
 
 // 5. Only responds to real city names --------------> DONE !!!
 
-// 6. Prevent weird future forecast display when clearing search with bad city name
+// 6. Prevent weird future forecast display when clearing search with bad city name --------------> DONE !!!
 
-// 7. Only save city if it doesn't already exist in local storage
+// 7. Only save city if it doesn't already exist in local storage --------------> DONE !!!
+
+// 8. If 404 error, then display message to choose a valid city name
+
+// 9. Capitalize first letter of each work on search history
 
 
 var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
@@ -249,21 +253,29 @@ function fetchWeather() {
 // || Adds searched city to previously searched section
 function saveCity() {
     // || Creating button for searched city
-    var searchedCity = $('<div>');
-    var cityBtn = $('<button>');
-    cityBtn.addClass('btn btn-secondary btn-lg btn-block');
-    cityBtn.text(cityName);
-    searchedCity.attr('style', 'margin-bottom: 15px;')
-    searchedCity.append(cityBtn);
-    searchHistoryEl.append(searchedCity);
-    console.log(storageArr);
+    var nameCheck;
+    for (var i = 0; i < storageArr.length; i++) {
+        if (cityName === storageArr[i]) {
+            nameCheck = true;
+            break;
+        }
+    }
+    if (!nameCheck) {
+        var searchedCity = $('<div>');
+        var cityBtn = $('<button>');
+        cityBtn.addClass('btn btn-secondary btn-lg btn-block');
+        cityBtn.text(cityName);
+        searchedCity.attr('style', 'margin-bottom: 15px;')
+        searchedCity.append(cityBtn);
+        searchHistoryEl.append(searchedCity);
+        console.log(storageArr);
 
 
-    storageArr = storageArr.concat(`${cityName}`);
+        storageArr = storageArr.concat(`${cityName}`);
 
-    localStorage.setItem('city', JSON.stringify(storageArr));
-    console.log(storageArr);
-
+        localStorage.setItem('city', JSON.stringify(storageArr));
+        console.log(storageArr);
+    }
 }
 
 // || Event handler on button
