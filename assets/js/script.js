@@ -149,7 +149,7 @@ function fetchWeather() {
                         // || Add date to card
                         var futureDate = moment.unix(data.daily[i].dt).format('MM/DD/YYYY');
                         var fiveDayDate = $('<h3>');
-                        fiveDayDate.text(`(${futureDate})`);
+                        fiveDayDate.text(`${futureDate}`);
                         weatherCard.append(fiveDayDate);
 
                         // || Adding weather icon to each card

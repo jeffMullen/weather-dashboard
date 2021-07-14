@@ -14,7 +14,7 @@ h1 h2 h3 {
 
 header {
     /* background: radial-gradient(aquamarine, aqua, rgb(0, 119, 255), purple); */
-    background: radial-gradient(purple, rgb(0, 119, 225), aqua, aquamarine);
+    background: linear-gradient(to right, purple, rgb(0, 119, 225), aqua, aquamarine);
     padding: 20px;
 }
 
