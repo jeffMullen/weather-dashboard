@@ -36,8 +36,8 @@
 
 // 2. Clicking on previous search brings up weather data
 // a. add event delegation to search history element - check
-// b. fetch request with button text as the city - 
-// c.  piggyback on handleFormSubmit function
+// b. fetch request with button text as the city - check
+// c.  piggyback on handleFormSubmit function - check
 
 // 3. Clicking search button clears input field - check
 
@@ -46,12 +46,15 @@
 
 // 5. Only responds to real city names
 
+// 6. Only save city if it doesn't already exist in local storage
+
 
 var apiKey = '728241f4cb6c09bff9fdad1691ce482a';
 var searchBtn = $('#search-btn');
 var searchInput = $('#search-input');
 var currentForecast = $('#current-forecast');
 var futureForecast = $('#future-forecast');
+var weatherCardRow = $('weather-card-row');
 var searchHistoryEl = $('#search-history');
 var storageArr = [];
 
@@ -98,10 +101,11 @@ function getWeather() {
 function fetchWeather() {
     console.log(searchInput.val());
 
-    // || THIS CONDITION DOESN"T WORK ()&!%)(&#@%)(&*!@)(%*()#&_)(%&#@_)(&_)(%@#*)(_%&*#_)(&#@_)(&%#@_)(&*#%)_(&%#)_(&*#%@_)(&%#)_(&*#%_)(&#%)()
     console.log(cityName);
     cityName;
-
+    currentForecast.attr('style', 'display: none');
+    currentForecast.empty();
+    weatherCardRow.empty();
 
     // || API fetch for city latitude and longitude
     var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
@@ -177,10 +181,7 @@ function fetchWeather() {
                     var cardId = 1;
                     for (var i = 1; i < 6; i++) {
                         // || Create card
-                        var weatherCardRow = $('weather-card-row');
-
                         var weatherCard = $(`#card-${cardId}`);
-                        // weatherCard.addClass('card col-2');
 
                         // || Add date to card
                         var futureDate = moment.unix(data.daily[i].dt).format('MM/DD/YYYY');
@@ -252,7 +253,9 @@ function saveCity() {
 }
 
 // || Event handler on button
-searchBtn.on('click', getWeather);
+searchBtn.on('click', function () {
+    getWeather();
+});
 
 // || Event handler on search history buttons
 searchHistoryEl.on('click', 'button', function () {
