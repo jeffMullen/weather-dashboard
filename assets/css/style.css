@@ -13,7 +13,7 @@ h1 h2 h3 {
 }
 
 header {
-    background: radial-gradient(aquamarine, aqua, rgb(0, 119, 255), purple);
+    /* background: radial-gradient(aquamarine, aqua, rgb(0, 119, 255), purple); */
     background: radial-gradient(purple, rgb(0, 119, 225), aqua, aquamarine);
     padding: 20px;
 }
@@ -25,6 +25,7 @@ header {
 #current-forecast {
     border: 1px solid black;
     display: none;
+    background: rgb(201, 240, 255);
 }
 
 .index-color {
@@ -41,6 +42,12 @@ header {
     display: none;
 }
 
+#weather-card-row div {
+    background: #5FD0E7;
+}
+
 h3 {
     font-size: 20px;
+    font-weight: bold;
+    padding-top: 10px;
 }
