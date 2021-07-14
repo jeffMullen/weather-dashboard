@@ -49,7 +49,7 @@
 
 // 7. Only save city if it doesn't already exist in local storage --------------> DONE !!!
 
-// 8. If 404 error, then display message to choose a valid city name
+// 8. If 404 error, then display message to choose a valid city name --------------> DONE !!!
 
 // 9. Capitalize first letter of each work on search history --------------> DONE !!!
 
@@ -61,10 +61,10 @@ var currentForecast = $('#current-forecast');
 var futureForecast = $('#future-forecast');
 var weatherCardRow = $('weather-card-row');
 var cardOne = $('#card-1');
-var cardTwo = $('#card-2')
-var cardThree = $('#card-3')
-var cardFour = $('#card-4')
-var cardFive = $('#card-5')
+var cardTwo = $('#card-2');
+var cardThree = $('#card-3');
+var cardFour = $('#card-4');
+var cardFive = $('#card-5');
 var searchHistoryEl = $('#search-history');
 var storageArr = [];
 
@@ -111,26 +111,26 @@ function getWeather() {
 function fetchWeather() {
     console.log(searchInput.val());
 
-
-    currentForecast.attr('style', 'display: none');
-    currentForecast.empty();
-    futureForecast.attr('style', 'display: none');
-    cardOne.empty();
-    cardTwo.empty();
-    cardThree.empty();
-    cardFour.empty();
-    cardFive.empty();
-
     // || API fetch for city latitude and longitude
     var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
     fetch(requestUrl)
         .then(function (response) {
             if (response.status === 404) {
+                // || Message displaying that city is invalid
+                searchInput.val('');
+                searchInput.attr('placeholder', 'Invalid City');
                 return;
             } else {
 
-                console.log(cityName);
-                cityName;
+                currentForecast.attr('style', 'display: none');
+                currentForecast.empty();
+                futureForecast.attr('style', 'display: none');
+                cardOne.empty();
+                cardTwo.empty();
+                cardThree.empty();
+                cardFour.empty();
+                cardFive.empty();
+
                 saveCity();
                 return response.json();
             }
@@ -296,6 +296,10 @@ searchBtn.on('click', function () {
 
 // || Event handler on search history buttons
 searchHistoryEl.on('click', 'button', function () {
+    // || If search history button is clicked after 404, clear search bar
+    searchInput.attr('placeholder', '');
+
+    // || Getting city name from button
     cityName = $(this).text();
     console.log(cityName);
     fetchWeather();
