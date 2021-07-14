@@ -110,7 +110,7 @@ function fetchWeather() {
 
     currentForecast.attr('style', 'display: none');
     currentForecast.empty();
-    // weatherCardRow.children().empty();
+    futureForecast.attr('style', 'display: none');
     cardOne.empty();
     cardTwo.empty();
     cardThree.empty();
