@@ -35,6 +35,12 @@
 
     * Clicking on a city brings up corresponding weather data.
 
+## Contact
+
+* If you would like to collaborate feel free to reach out: jeffmullendev@gmail.com
+
 ## Webpage
 
 ![Image of Weather application](./assets/images/weather.png)
+
+![Search Bar of Weather app](./assets/images/weather-search.png)
