@@ -1,8 +1,23 @@
 # Weather Dashboard
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 ## Providing weather forecasts
 
 * The live [web application](https://jeffmullen.github.io/weather-dashboard/).
+
+## Technologies
+
+* JavaScript
+
+* jQuery
+
+* Bootstrap
+
+* CSS
+
+* HTML
+
+* Open Weather API
 
 ## Functionality
 
