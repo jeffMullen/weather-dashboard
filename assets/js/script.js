@@ -232,6 +232,12 @@ searchBtn.on('click', function () {
     getWeather();
 });
 
+searchInput.keypress((event) => {
+    if (event.which === 13) {
+        getWeather();
+    }
+})
+
 // || Event handler on search history buttons
 searchHistoryEl.on('click', 'button', function () {
     // || Getting city name from button
